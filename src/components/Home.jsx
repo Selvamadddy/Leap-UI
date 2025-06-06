@@ -7,6 +7,7 @@ export default function Home(){
           <div class ="coversection">
             <Cover />
           </div>
+          <div class="menusection">menu</div>
           <div class = "tasksection">task</div>
         </div>
     );

@@ -11,7 +11,14 @@
     margin-bottom: 0.3%;
 }
 
+.menusection{
+    background-color: azure;
+    height :13vh;
+    position: sticky;
+    top : 0px;
+}
+
 .tasksection{
     background-color: lightblue;
-    height: 76vh;
+    height: 1500px;
 }
