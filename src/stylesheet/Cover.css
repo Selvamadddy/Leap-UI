@@ -1,0 +1,76 @@
+.covercontainer, .coverimgcontainer, .buttoncontainer{
+    border-radius: 10px;
+    width : 100%;
+    height: 100%;
+}
+
+.covercontainer{
+    position: relative;
+}
+
+.coverimg3{
+    width : 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.buttoncontainer{
+    position: absolute;
+    top:0;
+    z-index: 30;
+    opacity: 0;
+}
+.buttoncontainer:hover{
+    opacity: 1;
+
+}
+
+
+.uploadbutton{
+    position: absolute;
+    right: 4%;
+    bottom: 1%;
+    background-color: rgb(227, 234, 236);
+    padding: 0.4%;
+    padding-left: 0.4%;
+    padding-right: 0.4%;
+    font-weight: 100;
+    color: grey;
+    border-radius: 10px;
+    border: 1px solid gray;
+}
+
+.uploadbutton:hover{
+    border-width: 2px;
+    font-weight: 200;
+    color: rgb(78, 76, 76);
+    box-shadow: 3px 4px 3px rgb(180, 177, 177);
+    margin: 0;
+}
+
+.deletebutton{
+    position: absolute;
+    right: 1%;
+    bottom: 2%;
+    background-color: rgb(227, 234, 236);
+    color: grey;
+    padding: 0.4%;
+    padding-left: 0.4%;
+    padding-right: 0.4%;
+    border-radius: 10px;
+    border: 1px solid gray;
+}
+.deletebutton:hover{
+    border-width: 2px;
+    color: rgb(78, 76, 76);
+    box-shadow: 3px 4px 3px rgb(180, 177, 177);
+    margin: 0;
+}
+.deletepng{
+    padding : 1px;
+    object-fit: cover;
+}
+.deletebutton, .uploadbutton, .buttoncontainer{
+    transition: border-width 0.1s, color 0.1s, box-shadow 0.1s, opacity 0.1s;
+}
+
