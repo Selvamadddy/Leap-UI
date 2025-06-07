@@ -29,7 +29,7 @@
 .uploadbutton{
     position: absolute;
     right: 4%;
-    bottom: 1%;
+    bottom: 5%;
     background-color: rgb(227, 234, 236);
     padding: 0.4%;
     padding-left: 0.4%;
@@ -51,7 +51,7 @@
 .deletebutton{
     position: absolute;
     right: 1%;
-    bottom: 2%;
+    bottom: 5%;
     background-color: rgb(227, 234, 236);
     color: grey;
     padding: 0.4%;
