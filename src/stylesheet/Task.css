@@ -1,0 +1,21 @@
+.task1{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    margin-bottom: 4%;;
+}
+
+.input-box {
+  word-wrap: break-word;
+  word-break: break-word;
+  background-color: transparent;
+  border: 0px none;
+  outline: none;
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block; /* For Firefox */
+  color: rgba(0, 0, 0, 0.592);
+}

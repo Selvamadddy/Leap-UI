@@ -6,7 +6,6 @@
     background-color: white;
     margin: 0% 1% 0% 1%;
     height :11vh;
-    background-color: rgba(212, 233, 235, 0.316);;
 }
 
 .menutoolcontainer{
@@ -114,4 +113,9 @@
 .closebutton:hover{
     font-size: 120%;
     font-weight: 300;
+}
+.addbutton{
+    background-color: transparent;
+    border-radius: 50%;
+    border:none;
 }

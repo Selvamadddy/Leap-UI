@@ -1,6 +1,7 @@
 import "../stylesheet/Home.css";
 import Cover from "./Cover";
 import Menu from "./Menu";
+import Body from "./Body";
 
 export default function Home(){
     return(
@@ -11,7 +12,9 @@ export default function Home(){
           <div class="menusection">
             <Menu />
           </div>
-          <div class = "tasksection">task</div>
+          <div class = "tasksection">
+            <Body />
+          </div>
         </div>
     );
 }

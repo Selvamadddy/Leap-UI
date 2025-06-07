@@ -4,7 +4,7 @@
     margin: 5px;
     border: 2px solid gray;
     border-radius: 10px;
-    background-color: rgba(212, 233, 235, 0.316);
+    background-color: white;
 }
 
 .coversection{
@@ -15,10 +15,10 @@
 .menusection{
     position: sticky;
     top : 0px;
+    z-index: 100;
 }
 
 .tasksection{
-    height: 1500px;
     margin-left : 1%;
     margin-right: 1%;
     border-radius: 1%;
