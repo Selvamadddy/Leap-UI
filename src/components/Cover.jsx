@@ -1,5 +1,5 @@
 import "../stylesheet/Cover.css";
-import coverimg from "../assets/coverimg.JPG";
+import coverimg from "../assets/coverimg2.PNG";
 
 export default function Cover(){
     return(
