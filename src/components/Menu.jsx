@@ -36,6 +36,9 @@ export default function Menu(){
                         <i class="bi bi-x-circle"></i>
                     </button>
                 </button>
+                <button class="addbutton">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
             </div>
         </div>
     );
