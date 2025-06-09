@@ -1,0 +1,121 @@
+.menucontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+    background-color: white;
+    margin: 0% 1% 0% 1%;
+    height :11vh;
+}
+
+.menutoolcontainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0.3%;;
+}
+
+.menuleft{
+    display: flex;
+    flex-direction: row;
+    width : 17%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.commonbutton{
+    border: none;
+    background-color: transparent;
+    border-radius: 20%;
+}
+.name{
+    font-size: 120%;
+    font-weight: 1000;
+}
+
+.homeicon{
+   font-size: 150%;
+}   
+
+.sharebutton{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 27%;
+    background-color: rgb(182, 215, 239);
+    color: rgb(4, 9, 76);
+    border-radius: 7%;
+    border-width: 0;
+    padding: 2%;
+    font-weight: 200;
+}
+
+.sharebutton:hover{
+    box-shadow: 3px 4px 3px rgb(180, 177, 177);
+}
+.commonbutton:hover{
+    box-shadow: 3px 4px 3px rgb(180, 177, 177);
+}
+
+
+.menuright{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    margin-right: 2%;
+}
+.profile{
+    width: 20%;
+    border-radius: 50%;
+    margin-left: 15%;
+}
+.notebookicon:hover{
+    box-shadow: 3px 4px 3px rgb(180, 177, 177);
+}
+.notebookicon{
+    font-size: 120%;
+    background-color: transparent;
+    border-radius: 25%;
+}   
+
+.noteheader{
+    margin-left: 1.4%;
+    z-index: 100;
+}
+.notebutton{
+    border-radius: 10%;
+    border-color: transparent;
+    font-size: small;
+    padding: 0.33%;
+    background-color: aquamarine;
+    border: 0;
+    margin-right: 1.5%;
+    position: relative;
+}
+.notebutton:hover{
+    box-shadow: 3px 4px 3px rgb(180, 177, 177);
+}
+.notebutton1{
+    box-shadow: 3px 4px 3px rgb(180, 177, 177);
+}
+.closebutton{
+    background-color: transparent;
+    padding: 0px;
+    color: red;
+    border: none;
+    position: absolute;
+    top: -20%;
+    right: -6%;
+
+}
+.closebutton:hover{
+    font-size: 120%;
+    font-weight: 300;
+}
+.addbutton{
+    background-color: transparent;
+    border-radius: 50%;
+    border:none;
+}
