@@ -1,0 +1,23 @@
+[
+    {
+        "PlannerId": 1,
+        "PlannerName" : "my space",
+        "IsSelected" : true,
+        "Data": [
+            {
+                "CardId": 1,
+                "Title": {
+                    "name": "",
+                    "color": ""
+                },
+                "Tasks": [
+                    {
+                        "id": 1,
+                        "isChecked": false,
+                        "text": ""
+                    }
+                ]
+            }
+        ]
+    }
+]

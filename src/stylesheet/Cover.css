@@ -38,6 +38,7 @@
     color: grey;
     border-radius: 10px;
     border: 1px solid gray;
+    font-size: 1vw;
 }
 
 .uploadbutton:hover{
@@ -59,6 +60,7 @@
     padding-right: 0.4%;
     border-radius: 10px;
     border: 1px solid gray;
+    font-size: 1vw;
 }
 .deletebutton:hover{
     border-width: 2px;
