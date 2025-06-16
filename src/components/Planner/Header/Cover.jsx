@@ -1,4 +1,4 @@
-import "../stylesheet/Cover.css";
+import "../../../stylesheet/Cover.css";
 import { useState, useRef } from "react";
 import CoverImage from "./CoverImage";
 

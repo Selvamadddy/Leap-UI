@@ -1,7 +1,7 @@
-import "../stylesheet/Menu.css";
-import profileimg from "../assets/profile.PNG";
+import "../../../stylesheet/Menu.css";
+import profileimg from "../../../assets/profile.PNG";
 import PlannerTitleButton from "./PalnnerTitleButton";
-import { AddNewPlanner } from "./LocalStorage";
+import { AddNewPlanner } from "../../LocalStorage";
 
 export default function Menu(props){
 

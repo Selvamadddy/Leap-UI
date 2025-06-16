@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "../stylesheet/TaskCard.css";
+import "../../../stylesheet/TaskCard.css";
 import Task from "./Task";
-import TaskHeader from "./TaskHeader";
-import {AddNewTask, AddNewTaskCard, DeleteTaskCard} from "./LocalStorage.js";
+import TaskHeader from "./TaskHeader.jsx";
+import {AddNewTask, AddNewTaskCard, DeleteTaskCard} from "../../LocalStorage.js";
 
 export default function TaskCard(props){
     const [tasksData , setTasksData] = useState(props.taskCardData.Tasks); 

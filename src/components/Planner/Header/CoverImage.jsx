@@ -1,5 +1,5 @@
-import "../stylesheet/Cover.css";
-import coverImgPath from "../assets/coverimg2.PNG";
+import "../../../stylesheet/Cover.css";
+import coverImgPath from "../../../assets/coverimg2.PNG";
 
 export default function CoverImage(props){
 

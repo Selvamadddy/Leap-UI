@@ -1,9 +1,9 @@
-import "../stylesheet/Home.css";
-import Cover from "./Cover";
-import Menu from "./Menu";
-import Body from "./Body";
+import "../../stylesheet/Home.css";
+import Cover from "./Header/Cover";
+import Menu from "./Menu/Menu";
+import Body from "./Body/Body";
 import { useState, useEffect } from "react";
-import { LocalStorage1, GetSelectedPlanner, UpdateSelectedPlanner } from "./LocalStorage";
+import { LocalStorage1, GetSelectedPlanner, UpdateSelectedPlanner } from "../LocalStorage";
 
 export default function Home() {
   const [data, setData] = useState(() => LocalStorage1());

@@ -1,6 +1,6 @@
-import "../stylesheet/Task.css";
+import "../../../stylesheet/Task.css";
 import React, { useState } from "react";
-import {UpdateTaskData} from "./LocalStorage.js";
+import {UpdateTaskData} from "../../LocalStorage.js";
 import ContentEditable from 'react-contenteditable';
 
 export default function Task(props){

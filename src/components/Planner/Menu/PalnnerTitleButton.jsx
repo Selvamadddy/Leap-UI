@@ -1,6 +1,6 @@
-import "../stylesheet/PlannerTitleButton.css";
+import "../../../stylesheet/PlannerTitleButton.css";
 import { useState } from "react";
-import { DeletePlanner, UpdatePlannerName } from "./LocalStorage";
+import { DeletePlanner, UpdatePlannerName } from "../../LocalStorage";
 
 export default function PlannerTitleButton(props){
     const [isMenuHovered, setIsMenuHovered] = useState(false);

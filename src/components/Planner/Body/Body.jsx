@@ -1,7 +1,7 @@
-import "../stylesheet/Body.css"
+import "../../../stylesheet/Body.css"
 import TaskCard from "./TaskCard"
 import { useState } from "react";
-import { LocalStorage1} from "./LocalStorage";
+import { LocalStorage1} from "../../LocalStorage";
 
 export default function Body(props){
     const [data, setData] = useState({...props.taskData1});

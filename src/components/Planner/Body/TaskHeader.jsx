@@ -1,6 +1,6 @@
 import { useState } from "react";
-import "../stylesheet/TaskCard.css";
-import {UpdateTaskHeader} from "./LocalStorage.js";
+import "../../../stylesheet/TaskCard.css";
+import {UpdateTaskHeader} from "../../LocalStorage.js";
 
 export default function TaskHeader(props){
     const [titleData , setTitleData] = useState(props.titleData);
