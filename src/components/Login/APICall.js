@@ -58,7 +58,15 @@ export async function SignIn(email, password){
             "Email" : email,
             "Password" : password
         };
-        return await PostRequest(request, "Login");
+        const response = await PostRequest(request, "Login");
+
+        const savedData = localStorage.getItem('token');
+        if (savedData) {
+            localStorage.removeItem('token');
+        }      
+        localStorage.setItem('token', response.token.access_Token);
+
+        return response;
     } 
     catch (error) {
         console.error('Error:', error);

@@ -3,51 +3,57 @@ import Cover from "./Header/Cover";
 import Menu from "./Menu/Menu";
 import Body from "./Body/Body";
 import { useState, useEffect } from "react";
-import { LocalStorage1, GetSelectedPlanner, UpdateSelectedPlanner } from "../LocalStorage";
+import { GetAllPlanners } from "./ApiCall";
+import { useNavigate } from 'react-router';
+import LinearIndeterminate from "../Common/LinearIndeterminate";
 
 export default function Home() {
-  const [data, setData] = useState(() => LocalStorage1());
-  const [currentPlannerId, setCurrentPlannerId] = useState(() => {
-    const selected = GetSelectedPlanner();
-    return selected?.PlannerId || null;
-  });
+  const [data, setData] = useState(null);
+  const [currentPlannerId, setCurrentPlannerId] = useState(null);
+  const [reload, setReload] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const handleStorageChange = () => {
-      setData(LocalStorage1());
+    const handleStorageChange = async () => {
+      const response = await GetAllPlanners()
+      console.log(response);
+      if(response?.status === "Sucess")
+      {
+        setData(response?.planners)
+        {response?.planners && setCurrentPlannerId(response.planners[0].id)}
+      }
+      else if(response === "UnAuthorized" || response?.errorMessage === "UnAuthorized")
+      {
+        navigate('/Login');
+      }
+      
     };
     handleStorageChange();
-  }, [currentPlannerId]);
+  }, [reload]);
 
-  const selectTaskData = (plannerId) => {
-    UpdateSelectedPlanner(plannerId);
+  const updateSelectedPlanner = (plannerId) => {
     setCurrentPlannerId(plannerId);
   }
 
-  const addNewPlanner = () =>{
-    setData(LocalStorage1());
-    setCurrentPlannerId(GetSelectedPlanner().PlannerId);
+  const ReloadPlannerState = () =>{
+    setReload(!reload);
   }
-
-  const deletePlanner = (plannerId) =>{
-    setData(LocalStorage1());
-    setCurrentPlannerId(GetSelectedPlanner().PlannerId);
-  }
-
-  const currentPlannerData = data.find(x => x.PlannerId == currentPlannerId);
-  const tasksdatas = data;
 
   return (
-    <div className="homepage">
-      <div className="coversection">
-        <Cover />
+    <>
+      <div className="homepage">
+        <div className="coversection">
+          <Cover />
+        </div>
+        {data && <div className="menusection">
+          <Menu planners={data} selectedPlannerId = {currentPlannerId} updateSelectedPlanner={updateSelectedPlanner} 
+                reloadPlannerState={ReloadPlannerState} />
+        </div>}
+        {data && <div className="tasksection">
+          {currentPlannerId && <Body key={currentPlannerId} currentPlannerId={currentPlannerId} />}
+        </div>}
+        {!data && <><br/><LinearIndeterminate displayText = "Loading data..."/><br/></>}
       </div>
-      <div className="menusection">
-        <Menu taskData={tasksdatas} setTask={selectTaskData} addPlanner={addNewPlanner} deletePlanner = {deletePlanner}/>
-      </div>         
-      <div className="tasksection">
-        {currentPlannerData && <Body key={currentPlannerId} taskData1={currentPlannerData} />}
-      </div>
-    </div>
+    </>
   );
 }

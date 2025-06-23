@@ -1,23 +1,30 @@
 import { useState } from "react";
 import "../../../stylesheet/TaskCard.css";
-import {UpdateTaskHeader} from "../../LocalStorage.js";
+import { AddTaskCard, DeleteTaskCard, UpdateTaskCard } from "../ApiCall";
 
 export default function TaskHeader(props){
     const [titleData , setTitleData] = useState(props.titleData);
 
     const handleInputChange = (e) => {
         setTitleData({...titleData, name : e.target.value});
-        UpdateTaskHeader({...titleData, name : e.target.value} , props.cardId, props.plannerId)
     }
-    const HandleAddNewTaskCard = () =>{
-        props.addNewTaskCard1();
+    const HandleAddNewTaskCard = async () =>{
+        await AddTaskCard(props.plannerId);
+        props.reloadTaskCardState();
     }
-    const HandleDeleteTaskCard = () =>{
-        props.deleteTaskCard1();
+    const HandleDeleteTaskCard = async () =>{
+        await DeleteTaskCard(props.titleData.id);
+        props.reloadTaskCardState();
+    }
+
+    const HandleEnterPress = async (event) => {
+        if (event.key === "Enter") {
+            await UpdateTaskCard(titleData);
+        }
     }
 
     return(
-        <div className = "taskheader" style={{backgroundColor: titleData.color}}>
+        <div className = "taskheader" style={{backgroundColor: titleData.headerColour}}>
             <div className ="tasktool">
                 <button className ="toolbutton">
                     <i className ="bi bi-brush tool"></i>
@@ -29,7 +36,7 @@ export default function TaskHeader(props){
                     <i className="bi bi-trash tool"></i>
                 </button>
             </div>
-            <input type="text" placeholder="Title" value = {titleData.name} onChange={handleInputChange} className="tasktitle"/>
+            <input type="text" placeholder="Title" value = {titleData.name} onChange={handleInputChange}  onKeyUp={HandleEnterPress} className="tasktitle"/>
         </div>
     );
 }

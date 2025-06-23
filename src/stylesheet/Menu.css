@@ -18,7 +18,7 @@
 .menuleft{
     display: flex;
     flex-direction: row;
-    width : 19%;
+    width : 17%;
     justify-content: space-between;
     align-items: center;
 }
@@ -27,7 +27,14 @@
     border: none;
     background-color: transparent;
     border-radius: 20%;
-    font-size: 1vw;;
+    font-size: 1vw;
+}
+.commonbutton2{
+    border: none;
+    background-color: transparent;
+    border-radius: 20%;
+    font-size: 1vw;
+    position: relative;
 }
 .name{
     font-size: 1.5vw;
@@ -71,7 +78,7 @@
 .profile{
     width: 2.4vw;
     border-radius: 50%;
-    margin-left: 1vw;
+    margin-left: 0.5vw;
 }
 .notebookicon:hover{
     box-shadow: 0.3vw 0.3vw 0.3vw rgb(180, 177, 177);
@@ -80,6 +87,7 @@
     font-size: 1.5vw;
     background-color: transparent;
     border-radius: 25%;
+    margin-right: 20%;
 }   
 
 .noteheader{
@@ -100,4 +108,34 @@
     padding : 400px;
     background-color: brown;
     z-index: 300;
+}
+
+
+.menuOptions2{
+  position: absolute;
+  background-color: rgb(13, 53, 197);
+  color: white;
+  border-radius: 7%;
+  border: 2px solid rgba(0, 0, 0, 0.281);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  font-size: 80%;
+  padding: 5% 5% 0% 5%;
+  top : 103%;
+  width: 350%;
+}
+
+.menuicon2{
+  font-size: 110%;
+  margin-bottom: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.menuName2{
+  margin-left: 5%;
 }

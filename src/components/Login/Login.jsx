@@ -14,7 +14,6 @@ import PasswordInput from "./PasswordInput";
 import {SignIn} from "./APICall.js";
 
 export default function Login(){
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -49,6 +48,7 @@ export default function Login(){
             }
             else
             {
+                alert(`Beta !!!! Don't use PII data.`);
                 navigate('/Activity');
             }
         }       

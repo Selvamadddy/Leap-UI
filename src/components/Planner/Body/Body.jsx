@@ -1,24 +1,33 @@
 import "../../../stylesheet/Body.css"
 import TaskCard from "./TaskCard"
-import { useState } from "react";
-import { LocalStorage1} from "../../LocalStorage";
+import { useState, useEffect } from "react";
+import { GetAllTaskCards } from "../ApiCall";
 
 export default function Body(props){
-    const [data, setData] = useState({...props.taskData1});
-
-
-    const reloadAllTask = () =>{
-        setData(LocalStorage1().find(x => x.PlannerId === data.PlannerId));
+    const [data, setData] = useState(null);
+    const [reload, setReload] = useState(false);
+    
+    useEffect(() => {
+        const handleStorageChange = async () => {
+          const response = await GetAllTaskCards(props.currentPlannerId)
+          setData(response.taskCards)
+        };
+        handleStorageChange();
+      }, [reload]);
+    
+    const ReloadTaskCardState = () =>{
+        setReload(!reload);
     }
 
     const taskCards = () =>{
-        return data.Data.map(x => <TaskCard key = {x.CardId} taskCardData = {x} plannerId = {data.PlannerId} reloadCard={reloadAllTask}/>  );
+        return data.map(x => <TaskCard key = {x.id} taskCardData = {x} plannerId = {props.currentPlannerId}
+                                            reloadTaskCardState = {ReloadTaskCardState}/>  );
     }
 
     return(
         <div className="bodycontainer">
             <div className="gridcontainer">
-                {taskCards()}                
+                {data && taskCards()}                
             </div>
         </div>
     );

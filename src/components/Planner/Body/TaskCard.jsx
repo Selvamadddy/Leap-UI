@@ -1,49 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../../../stylesheet/TaskCard.css";
 import Task from "./Task";
 import TaskHeader from "./TaskHeader.jsx";
-import {AddNewTask, AddNewTaskCard, DeleteTaskCard} from "../../LocalStorage.js";
+import { GetAllTask, AddTask } from "../ApiCall";
 
 export default function TaskCard(props){
-    const [tasksData , setTasksData] = useState(props.taskCardData.Tasks); 
+    const [tasksData, setTasksData] = useState(null);
+    const [reload, setReload] = useState(false);
 
-    const AddTask = () =>{
-        const newTaskId = tasksData.length + 1;
-        const newTask = {
-                        "id" : newTaskId,
-                        "isChecked" : false,
-                        "text" : ""
-                    };
-        
-        setTasksData([...tasksData, newTask]);
-        AddNewTask([...tasksData, newTask], props.taskCardData.CardId, props.plannerId );
+    useEffect(() => {
+        const handleStorageChange = async () => {
+            const response = await GetAllTask(props.taskCardData.id)
+            setTasksData(response.tasks)
+        };
+        handleStorageChange();
+    }, [reload]);
+
+    const AddTaskHandler = async () =>{
+        await AddTask(props.taskCardData.id);
+        setReload(!reload);
     }
 
-    const DeleteTask = (taskId) =>{
-        const taskindex = tasksData.findIndex(x => x.id == taskId);
-        const v1 = tasksData;
-        v1.splice(taskindex, 1);
-        setTasksData([...v1]);
-        AddNewTask([...v1], props.taskCardData.CardId, props.plannerId );
-    }
-
-    const AddNewCard = () =>{
-        AddNewTaskCard(props.plannerId);
-        props.reloadCard();
-    }
-    const DeleteCard = () =>{
-        DeleteTaskCard(props.plannerId, props.taskCardData.CardId);
-        props.reloadCard();
+    const ReloadTaskState = () =>{
+        setReload(!reload);
     }
 
     return(
     <div className="taskcontainer">
-        <TaskHeader titleData = {props.taskCardData.Title} cardId={props.taskCardData.CardId} plannerId = {props.plannerId} 
-            addNewTaskCard1 = {AddNewCard} deleteTaskCard1 = {DeleteCard}/>
+        <TaskHeader titleData = {props.taskCardData} plannerId = {props.plannerId} 
+                    reloadTaskCardState = {props.reloadTaskCardState} />
         <div className = "taskbody">
-            {tasksData.map(x => <Task key = {x.id} taskData = {x} cardId={props.taskCardData.CardId} plannerId = {props.plannerId} deletetask={DeleteTask}/>)}
+            {tasksData && tasksData.map(x => 
+                <Task key = {x.id} taskData={x} reloadTaskState={ReloadTaskState}/>)
+            }
         </div>
-        <button className="addtaskbutton" onClick={AddTask}> Add new task</button>
+        <button className="addtaskbutton" onClick={AddTaskHandler}> Add new task</button>
     </div>
     );
 }

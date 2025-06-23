@@ -1,38 +1,41 @@
 import "../../../stylesheet/PlannerTitleButton.css";
 import { useState } from "react";
-import { DeletePlanner, UpdatePlannerName } from "../../LocalStorage";
+//import { DeletePlanner, UpdatePlannerName } from "../../LocalStorage";
+import {DeletePlanner, UpdatePlanner} from "../ApiCall";
 
 export default function PlannerTitleButton(props){
     const [isMenuHovered, setIsMenuHovered] = useState(false);
     const [isEditIconVisible, setIsEditIconVisible] = useState(false);
-    const [title, setTitle] = useState(props.data1.PlannerName);
+    const [title, setTitle] = useState(props.plannerData.name);
     const [isTitleEdit, setIsTitleEdit] = useState(false);
 
 
     const HandleButtonClick = () => {
-        props.selectTask(props.data1.PlannerId);
+        props.updateSelectedPlanner(props.plannerData.id);
     }
+
     const HandleEditButtonClick = () =>{
         setIsTitleEdit(true);
     }
 
-    const HandleDeleteButtonCLick = () =>{
-        DeletePlanner(props.data1.PlannerId);
-        props.deletePlanner(props.data1.PlannerId);
+    const HandleDeleteButtonCLick = async () =>{
+        await DeletePlanner(props.plannerData.id);
+        props.reloadPlannerState();
     }
     const handleTitleChange =(event) =>{
         setTitle(event.target.value);
-        UpdatePlannerName(props.data1.PlannerId, event.target.value);
     }
-    const HandleEnterPress = (event) =>{
+    const HandleEnterPress = async (event) =>{
         if(event.key === "Enter"){
+            await UpdatePlanner(props.plannerData.id, title);
             setIsTitleEdit(false);
         }
     }
 
     return(
         <>
-        <button className ="plannerButton" onClick={HandleButtonClick} style = {{boxShadow : props.data1.IsSelected ? "3px 4px 3px rgb(180, 177, 177)" : "" , opacity : props.data1.IsSelected ? 1 : 0.7}}
+        <button className ="plannerButton" onClick={HandleButtonClick} style = {{boxShadow : props.plannerData.id === props.selectedPlannerId ? "3px 4px 3px rgb(180, 177, 177)" : "" , 
+                opacity : props.plannerData ? 1 : 0.7}}
                 onMouseEnter={() => setIsEditIconVisible(true)} onMouseLeave={() => setIsEditIconVisible(false)}>
             
             <input type="text" value={title} placeholder="My Planner" className="plannerTitle" maxLength="15" size={title.length <= 4 ? 6 : title.length - 2} 
