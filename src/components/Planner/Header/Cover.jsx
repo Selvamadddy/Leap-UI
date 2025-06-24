@@ -9,7 +9,6 @@ export default function Cover(){
     const inputRef = useRef(null);
 
     const handleUploadButtonClick = () => {
-       console.log("upload button click!!");
        inputRef.current.click();
     };
 

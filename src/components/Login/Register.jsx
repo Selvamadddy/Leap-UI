@@ -2,14 +2,13 @@ import Container from '@mui/material/Container';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { TextField } from '@mui/material';
- import { Button } from '@mui/material';
- import { Link } from 'react-router';
- import { useNavigate } from 'react-router';
-
+import { Button } from '@mui/material';
+import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
+import CircularProgress from '@mui/material/CircularProgress';
 import logo from "../../assets/logo.PNG";
 import wallpaper from "../../assets/bg1.jpg";
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import PasswordInput from "./PasswordInput";
 import {RegisterUser} from "./APICall.js";
 
@@ -26,8 +25,11 @@ export default function Register(){
     const [isValidComfirmPassword, setIsValidComfirmPassword] = useState({"isValid" : true, "errorMsg" : ""});
 
     const [isFailed, setIsFailed] = useState({"failed" : false, "msg" : ""});
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
+
+    useEffect(() =>{alert(`Beta !!!! Don't use personal or confidential data in this website.`);}, []);
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -42,8 +44,8 @@ export default function Register(){
         setConfirmPassword(event.target.value);
     };
 
-    const HandleSubmitButton = async () =>{
-
+    const HandleSubmitButton = async () =>
+    {     
         CheckEmpty(email, setIsValidEmail, "Email");
         setIsValidName(name !== "");
         CheckEmpty(password, setIsValidPassword, "Password");
@@ -53,17 +55,21 @@ export default function Register(){
             setIsValidComfirmPassword({"isValid" : false, "errorMsg" : `Password and Confirm Password should be same`})
         }
         if(email !== "" && name !== "" && password !== "" && ConfirmPassword !== "" && password === ConfirmPassword){
+            setIsLoading(true);
             const response = await RegisterUser(email, name, password);
             if(response == null || (response.status === "Failed" && response.errorMessage !== "InvalidProcess"))
             {
+                setIsLoading(false);
                 setIsFailed({"failed" : true, "msg" : "Failed to register user. Try after some time."});
             }
             else if(response.status === "Failed" && response.errorMessage === "InvalidProcess")
             {
-                setIsFailed({"failed" : true, "msg" : "Email is already used"});
+                setIsLoading(false);
+                setIsFailed({"failed" : true, "msg" : "Email is already Registered"});
             }
             else
             {
+                setIsLoading(false);
                 navigate('/Login');
             }
         }       
@@ -131,7 +137,10 @@ export default function Register(){
                             error = {!isValidPassword.isValid} helperText={isValidPassword.errorMsg}/>
                         <PasswordInput label="Confirm Password" value={ConfirmPassword} onChange={handleConfirmPasswordChange}
                             error = {!isValidComfirmPassword.isValid} helperText={isValidComfirmPassword.errorMsg}/>
-                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>Create Account</Button>
+                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>
+                            Create Account
+                            {isLoading && <CircularProgress color="white" sx={{marginLeft : "7%"}}/>}
+                        </Button>
 
                     </div>
                 </Box>

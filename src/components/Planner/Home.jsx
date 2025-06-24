@@ -16,7 +16,6 @@ export default function Home() {
   useEffect(() => {
     const handleStorageChange = async () => {
       const response = await GetAllPlanners()
-      console.log(response);
       if(response?.status === "Sucess")
       {
         setData(response?.planners)

@@ -2,21 +2,19 @@ import Container from '@mui/material/Container';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { TextField } from '@mui/material';
- import { Button } from '@mui/material';
- import { Link } from 'react-router';
-
+import { Button } from '@mui/material';
+import { Link } from 'react-router';
+import CircularProgress from '@mui/material/CircularProgress';
 import logo from "../../assets/logo.PNG";
 import wallpaper from "../../assets/bg1.jpg";
 import { useState } from 'react';
-
 import {ValidateOtp} from "./APICall.js";
 
 export default function FP_otp(props){
 
     const [otp, setotp] = useState("");
-
+    const [isLoading, setIsLoading] = useState(false);
     const [isValidotp, setIsValidotp] = useState({"isValid" : true, "errorMsg" : ""});
-
     const [isFailed, setIsFailed] = useState({"failed" : false, "msg" : ""});
     let canSendRequest = false;
 
@@ -27,17 +25,21 @@ export default function FP_otp(props){
     const HandleSubmitButton = async () =>{
         CheckEmpty(otp, setIsValidotp, "OTP");
         if(otp !== "" && canSendRequest){
+            setIsLoading(true);
             const response = await ValidateOtp(props.email, otp);
             if(response == null || (response.status === "Failed" && response.errorMessage !== "InvalidProcess"))
             {
+                setIsLoading(false);
                 setIsFailed({"failed" : true, "msg" : "Failed to process your request. Try after some time."});
             }
             else if(response.status === "Failed" && response.errorMessage === "InvalidProcess")
             {
+                setIsLoading(false);
                 setIsFailed({"failed" : true, "msg" : "Invalid OTP."});
             }
             else
             {
+                setIsLoading(false);
                 props.setComponent("FP_UpdatePassword");
             }
         }       
@@ -92,7 +94,10 @@ export default function FP_otp(props){
                         <TextField label="OTP" variant="outlined"  sx = {{width : "90%"}} value={otp} onChange={handleotpChange}
                             error = {!isValidotp.isValid} helperText={isValidotp.errorMsg}/>
 
-                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>Submit</Button>
+                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>
+                            Submit
+                            {isLoading && <CircularProgress color="white" sx={{marginLeft : "7%"}}/>}
+                        </Button>
                         <Typography align="center" component="p" sx={{marginTop : "1vh"}}>
                             <Link to="/Login">Back to log in ?</Link>
                         </Typography>

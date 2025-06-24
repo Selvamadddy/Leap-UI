@@ -1,5 +1,5 @@
 
-const BaseUrl = "https://localhost:44326/api/";
+const BaseUrl = "https://www.leap-myplanner.somee.com/api/";
 
 async function PostRequest(request, apiName){
         const response = await fetch(BaseUrl + apiName, {
@@ -12,11 +12,9 @@ async function PostRequest(request, apiName){
 
         if (response.ok) {
             const data = await response.json();
-            console.log('Success:', data);
             return data;
         } 
         else {
-            console.error('Error:', response.status);
             return null;
         }
 }
@@ -33,7 +31,6 @@ export async function RegisterUser(email, name, password){
         
     } 
     catch (error) {
-        console.error('Error:', error);
         return null;
     }
 }
@@ -47,7 +44,6 @@ export async function GenerateOtp(email){
         
     } 
     catch (error) {
-        console.error('Error:', error);
         return null;
     }
 }
@@ -69,7 +65,6 @@ export async function SignIn(email, password){
         return response;
     } 
     catch (error) {
-        console.error('Error:', error);
         return null;
     }
 }
@@ -83,7 +78,6 @@ export async function ValidateOtp(email, otp){
         return await PostRequest(request, "ValidateOtp");
     } 
     catch (error) {
-        console.error('Error:', error);
         return null;
     }
 }
@@ -97,7 +91,6 @@ export async function UpdatePassword(email, password){
         return await PostRequest(request, "UpdatePassword");
     } 
     catch (error) {
-        console.error('Error:', error);
         return null;
     }
 }

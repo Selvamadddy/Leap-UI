@@ -2,14 +2,13 @@ import Container from '@mui/material/Container';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { TextField } from '@mui/material';
- import { Button } from '@mui/material';
- import { Link } from 'react-router';
- import { useNavigate } from 'react-router';
-
+import { Button } from '@mui/material';
+import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
+import CircularProgress from '@mui/material/CircularProgress';
 import logo from "../../assets/logo.PNG";
 import wallpaper from "../../assets/bg1.jpg";
 import { useState } from 'react';
-
 import PasswordInput from "./PasswordInput";
 import {SignIn} from "./APICall.js";
 
@@ -21,9 +20,15 @@ export default function Login(){
     const [isValidPassword, setIsValidPassword] = useState({"isValid" : true, "errorMsg" : ""});
 
     const [isFailed, setIsFailed] = useState({"failed" : false, "msg" : ""});
-    let canSendRequest = false;
+    const [isLoading, setIsLoading] = useState(false);
 
+    let canSendRequest = false;
     const navigate = useNavigate();
+
+    if(!isLoading)
+    {
+        localStorage.removeItem('token');
+    }
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -32,23 +37,26 @@ export default function Login(){
         setPassword(event.target.value);
     };
 
-    const HandleSubmitButton = async () =>{
-
+    const HandleSubmitButton = async () =>
+    {
+        setIsLoading(true);       
         CheckEmpty(email, setIsValidEmail, "Email");
         CheckEmpty(password, setIsValidPassword, "Password");
         if(email !== "" && password !== "" && canSendRequest){
             const response = await SignIn(email, password);
             if(response == null || (response.status === "Failed" && response.errorMessage !== "InvalidProcess"))
             {
+                setIsLoading(false);
                 setIsFailed({"failed" : true, "msg" : "Failed to Sign in. Try after some time."});
             }
             else if(response.status === "Failed" && response.errorMessage === "InvalidProcess")
             {
+                setIsLoading(false);
                 setIsFailed({"failed" : true, "msg" : "Invalid Email And Password"});
             }
             else
             {
-                alert(`Beta !!!! Don't use PII data.`);
+                alert(`Beta !!!! Don't use personal or confidential data in this website.`);
                 navigate('/Activity');
             }
         }       
@@ -115,7 +123,10 @@ export default function Login(){
                             error = {!isValidEmail.isValid} helperText={isValidEmail.errorMsg}/>
                         <PasswordInput label="Password" value={password} onChange={handlePasswordChange}
                             error = {!isValidPassword.isValid} helperText={isValidPassword.errorMsg}/>
-                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>Login</Button>
+                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>
+                            Login
+                            {isLoading && <CircularProgress color="white" sx={{marginLeft : "7%"}}/>}
+                        </Button>
                         <Typography align="center" component="p" sx={{marginTop : "1vh"}}>
                             <Link to="/ForgotPassword">Forgot Password ?</Link>
                         </Typography>

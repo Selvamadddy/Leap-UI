@@ -1,22 +1,20 @@
 import Container from '@mui/material/Container';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
-import { TextField } from '@mui/material';
- import { Button } from '@mui/material';
- import { Link } from 'react-router';
- import { useNavigate } from 'react-router';
-
+import { Button } from '@mui/material';
+import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
+import CircularProgress from '@mui/material/CircularProgress';
 import logo from "../../assets/logo.PNG";
 import wallpaper from "../../assets/bg1.jpg";
 import { useState } from 'react';
-
 import PasswordInput from "./PasswordInput";
 import {UpdatePassword} from "./APICall.js";
 
 export default function FP_UpdatePassword(props){
     const [password, setPassword] = useState('');
     const [ConfirmPassword, setConfirmPassword] = useState('');
-
+    const [isLoading, setIsLoading] = useState(false);
     const [isValidPassword, setIsValidPassword] = useState({"isValid" : true, "errorMsg" : ""});
     const [isValidComfirmPassword, setIsValidComfirmPassword] = useState({"isValid" : true, "errorMsg" : ""});
 
@@ -42,13 +40,16 @@ export default function FP_UpdatePassword(props){
             canSendRequest = false;
         }
         if(password !== "" && ConfirmPassword !== "" && password === ConfirmPassword && canSendRequest){
+            setIsLoading(true);
             const response = await UpdatePassword(props.email, password);
             if(response == null || response.status === "Failed")
             {
+                setIsLoading(false);
                 setIsFailed({"failed" : true, "msg" : "Failed to Update password. Try after some time."});
             }
             else
             {
+                setIsLoading(false);
                 navigate('/Login');
             }
         }       
@@ -102,7 +103,10 @@ export default function FP_UpdatePassword(props){
                             error = {!isValidPassword.isValid} helperText={isValidPassword.errorMsg}/>
                         <PasswordInput label="Confirm Password" value={ConfirmPassword} onChange={handleConfirmPasswordChange}
                             error = {!isValidComfirmPassword.isValid} helperText={isValidComfirmPassword.errorMsg}/>
-                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>Update Password</Button>
+                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>
+                            Update Password
+                            {isLoading && <CircularProgress color="white" sx={{marginLeft : "7%"}}/>}
+                        </Button>
 
                         <Typography align="center" component="p">
                             <Link to="/Login">Sign In</Link>

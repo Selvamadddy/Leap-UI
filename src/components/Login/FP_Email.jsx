@@ -2,24 +2,21 @@ import Container from '@mui/material/Container';
 import { Box } from '@mui/material';
 import { Typography } from '@mui/material';
 import { TextField } from '@mui/material';
- import { Button } from '@mui/material';
- import { Link } from 'react-router';
-
+import { Button } from '@mui/material';
+import { Link } from 'react-router';
+import CircularProgress from '@mui/material/CircularProgress';
 import logo from "../../assets/logo.PNG";
 import wallpaper from "../../assets/bg1.jpg";
 import { useState } from 'react';
-
 import {GenerateOtp} from "./APICall.js";
 
 export default function FP_Email(props){
 
     const [email, setEmail] = useState('');
-
     const [isValidEmail, setIsValidEmail] = useState({"isValid" : true, "errorMsg" : ""});
-
+    const [isLoading, setIsLoading] = useState(false);
     const [isFailed, setIsFailed] = useState({"failed" : false, "msg" : ""});
     let canSendRequest = false;
-
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -29,17 +26,21 @@ export default function FP_Email(props){
 
         CheckEmpty(email, setIsValidEmail, "Email");
         if(email !== "" && canSendRequest){
+            setIsLoading(true);
             const response = await GenerateOtp(email);
             if(response == null || (response.status === "Failed" && response.errorMessage !== "InvalidProcess"))
             {
+                setIsLoading(false);
                 setIsFailed({"failed" : true, "msg" : "Failed to process your request. Try after some time."});
             }
             else if(response.status === "Failed" && response.errorMessage === "InvalidProcess")
             {
+                setIsLoading(false);
                 setIsFailed({"failed" : true, "msg" : "This Email is not registered."});
             }
             else
             {
+                setIsLoading(false);
                 props.setEmail(email);
                 props.setComponent("FP_otp");
             }
@@ -99,7 +100,10 @@ export default function FP_Email(props){
 
                         <TextField label="Email" variant="outlined"  sx = {{width : "90%"}} value={email} onChange={handleEmailChange}
                             error = {!isValidEmail.isValid} helperText={isValidEmail.errorMsg}/>
-                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>Send OTP</Button>
+                        <Button variant="contained" sx = {{width : "60%", padding : "1.5%"}} onClick={HandleSubmitButton}>
+                            Send OTP
+                            {isLoading && <CircularProgress color="white" sx={{marginLeft : "7%"}}/>}
+                        </Button>
                         <Typography align="center" component="p" sx={{marginTop : "1vh"}}>
                             <Link to="/Login">Back to log in ?</Link>
                         </Typography>
