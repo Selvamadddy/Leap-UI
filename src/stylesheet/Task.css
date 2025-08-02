@@ -1,0 +1,68 @@
+.task1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4%;;
+    position: relative;
+}
+
+.input-box {
+  word-wrap: break-word;
+  word-break: break-word;
+  background-color: transparent;
+  border: 0px none;
+  outline: none;
+  margin-left: 1%;
+  font-size: 1vw;
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  pointer-events: none;
+  display: block; /* For Firefox */
+  color: rgba(0, 0, 0, 0.592);
+}
+
+.task1:hover{
+  background-color: rgba(53, 54, 55, 0.037);
+}
+
+.taskmenu{
+  opacity: 0.3;
+  font-size: 1vw;
+}
+
+.menuOptions{
+  position: absolute;
+  background-color: rgb(210, 225, 224);
+  top: 100%;
+  color: rgba(0, 0, 0, 0.526);
+  border-radius: 7%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  z-index: 10;
+  font-size: 1vw;
+  padding: 2% 2% 0% 2%;
+}
+
+.menuicon:hover{
+  color: rgb(0, 0, 0);
+}
+
+.menuicon{
+  font-size: 0.8vw;
+  margin-bottom: 10%;
+  display: flex;
+  flex-direction: row;
+}
+
+.menuName{
+  margin-left: 5%;
+  font-size: 0.8vw;
+}
+
+.checkbox1{
+  width: 1vw;
+  height: 1vw;
+}

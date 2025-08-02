@@ -1,0 +1,67 @@
+.taskcontainer{
+    margin-right: 10%;
+    margin-left: 10%;  
+    margin-bottom: 6%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1vw;
+    border : 0.4vh solid rgba(0, 0, 0, 0.166);
+}
+
+.taskheader{
+   background-color: rgb(143, 210, 210);
+   width: 100%;
+   display: flex;
+   flex-direction: column;
+   border-radius: 3.9%;
+   height: auto;
+}
+.tasktitle{
+    background-color: transparent;
+    font-size: 1.5vw;
+    font-weight: 400;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border: 0px none;
+    outline: none;
+    margin: 0;
+    margin-left: 1vw;
+}
+
+.tasktool{
+    display: flex;
+    justify-content: right;
+    margin-top: 2px;
+}
+.toolbutton{
+    margin-right: 1vw;
+    background-color: transparent;
+    border: none;
+}
+.tool{
+    font-size: 1.3vw;
+    transition: font-size 0.2s;
+    color: rgba(0, 0, 0, 0.377);
+}
+.tool:hover{
+    color: black;
+}
+
+
+.taskbody{
+    flex:1;
+    margin: 2%; 
+}
+
+.addtaskbutton{
+    margin-right: 35%;
+    margin-left: 35%;
+    margin-bottom: 1%;
+    padding: 0; 
+    border-color: transparent;
+    border-radius: 3%;
+    font-size: 1vw;
+    padding: 1%;
+    background-color: rgba(136, 140, 143, 0.308);
+    border: 0;
+    color: rgba(2, 2, 2, 0.574);
+}
